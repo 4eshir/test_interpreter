@@ -11,7 +11,6 @@ class FunctionCallParser implements ParserStrategy {
 	}
 
     public function parse(string $input): Expression {
-        // Убираем скобки в начале и в конце
         $input = trim($input, '()');
         $parts = explode(',', $input, 2);
         $functionName = trim($parts[0]);
@@ -25,6 +24,10 @@ class FunctionCallParser implements ParserStrategy {
         return new FunctionCall($functionName, $parameters);
     }
 
+    /*
+    * Эту функцию можно и нужно рефакторить, но я оставил ее в mvp-версии 
+    * (мало времени на тестирование, а функция местами вызывает сложности в граничных случаях)
+    */
     private function parseParameters(string $paramsInput): array {
 	    $paramsInput = trim($paramsInput);
 	    $params = [];
